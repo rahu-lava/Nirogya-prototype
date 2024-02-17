@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <style>
+        *{
+            font-size: 1.2em;
+            font-family: 'Noto Sans', sans-serif;
+/* font-family: 'Roboto Mono', monospace;   */
+            /* font-family: ; */
+        }
+        body{
+            height: 88vh;
+        }
+        #floated-container {
+            font-size: .6rem;
+        }
+        .container{
+            margin-top: 10vh;
+            height: 100%;
+        }
+        .divButtons{
+            display: flex;
+            justify-content: space-evenly;
+            align-items:center;
+            width: 50%;
+            /* height: 40%; */
+            font-size: 1rem;
+            /* width: ; */
+        }
+        .divButtons > *{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            border-radius: 25px;
+            padding: 10px 5px;
+            background-color: #f1e9e9;
+            /* border: 1px solid #790404; */
+            color: #920000;
+            height: 120px;
+            width: 230px;
+            text-align: center ;
+        }
+        .firstSection{
+            display: flex;
+            height: 30vh;
+        }
+        .divCards{
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            align-items: center;
+            /* place-items: center; */
+            /* text-align: center; */
+            padding: 10px 20px;
+            column-gap: 50px;
+            width: 50%;
+            /* height: 40%; */
+
+        }
+        .card{
+            /* width: max-content; */
+            /* padding: 10px; */
+            height: max-content;
+            border-radius: 20px;
+            border: 1px solid rgba(235, 140, 140, 0.708);
+        }
+        .card > p{
+            margin: 20px;
+        }
+        
+        .divCards .cardtext{
+            /* width: max-content; */
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+        }
+        .values{
+            font-size: 3rem;
+        }
+        .divButtons i{
+            font-size: 1.5rem;
+
+        }
+        .card i{
+            font-size: 2rem;
+        }
+        /* ////////////////////////// */
+        .secondSection{
+            height: 48vh;
+        }
+        .divData{
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            column-gap: 25px;
+            padding: 0px 20px;
+            /* height */
+            /* overflow: hidden; */
+            /* font-size: 1rem; */
+        }
+        .divData > *{
+            height: 100%;
+            padding: 5px;
+        }
+        .dataS{
+            display: flex;
+            margin: 5px;
+            flex-direction: column;
+            height: 41vh;
+            font-size: 1.1rem;
+            overflow: scroll;          
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            /* border: .7px solid #920000; */
+        }
+        .titleS{
+            font-size: 1.9rem;
+            border-left: 3px solid #920000;
+            padding: 3px 10px;
+            margin-bottom: 15px;
+        }
+        .medDetails{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+            margin: 7px 0px;
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            border-bottom: .5px solid #f69393ab;
+            /* border: 0.2px solid #e4adadad; */
+            /* background-color: #f6e0e0; */
+        }
+        .medDetails i{
+            font-size: .9rem;
+            z-index: -1;
+        }
+        .count{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .9rem;
+            width: 120px;
+        }
+        .dataS p{
+            display: block;
+        }
+        ::-webkit-scrollbar{
+            display: none;
+        }
+        .heading{
+            display: flex;
+            justify-content: space-between;
+            color: #920000;
+            border-radius: 5px;
+            background-color: #f6e0e0;
+            padding: 10px 20px;
+            font-size: .8rem;
+        }
+        /* /////////////////////////////////////////////////////////////////////////////// */
+
+
+
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirogya | Bill </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="floated-container"></div>
+    <div class="container">
+        <section class="firstSection">
+ 
+            <div class="divCards">
+                <div class="card card1">
+                    <p class="cardtext">To Recieve<i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i></p>
+                    <p class="values">1.2k</p> 
+                </div>
+                <div class="card card2">
+                    <p class="cardtext">To Pay<i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #d72114; --fa-secondary-color: #d72114;"></i></p>
+                    
+                    <p class="values">1.2k</p> 
+                </div>
+            </div>
+            <div class="divButtons">
+                <div class="csBillBtn">
+                    <p class="btnText">Customer Bill</p>
+                    <i class="fa-duotone fa-circle-plus" style="--fa-primary-color: #920000; --fa-secondary-color: #920000;"></i>
+                </div>
+                <div class="wsBillBtn">
+                    <p class="btnText">Wholeseller Bill</p>
+                    <i class="fa-duotone fa-circle-plus" style="--fa-primary-color: #920000; --fa-secondary-color: #920000;"></i>
+                </div>
+            </div>
+        </section>  
+        <section class="secondSection">
+            <div class="divData">
+                
+                <div class="recentSales">
+                    <div class="titleS"> Recent Sales </div>
+                    <div class="heading"><p>Invoice No.</p><p>Amount</p></div>
+                    <div class="dataS">
+                        <div class="medDetails" >
+                            CA/6969
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6979 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6969 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6979 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6969 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6979 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6969 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6979 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #2cd129; --fa-secondary-color: #34d714;"></i>
+                                120
+                            </p>
+                         </div>
+
+                        <!-- <p class="medDetails" ></p> -->
+                        <!-- <p class="medDetails" >Dolo650</p> -->
+                    </div>
+                </div>
+                <div class="recentPurchase">
+                    <div class="titleS"> Recent Purchase </div>
+                    <!-- <div class="subTitle"><span>Invoice</span></div> -->
+                    <div class="heading"><p>Invoice No.</p><p>Amount</p></div>
+                    <div class="dataS">
+                        <div class="medDetails" >CA/6969 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #d72114; --fa-secondary-color: #d72114;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6979 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #d72114; --fa-secondary-color: #d72114;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6969 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #d72114; --fa-secondary-color: #d72114;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6979 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #d72114; --fa-secondary-color: #d72114;"></i>
+                                120
+                            </p>
+                         </div>
+                         <div class="medDetails" >CA/6969 
+                            <p class="price">
+                                <i class="fa-duotone fa-indian-rupee-sign" style="--fa-primary-color: #d72114; --fa-secondary-color: #d72114;"></i>
+                                120
+                            </p>
+                         </div>
+
+                         </div>
+
+                        <!-- <p class="medDetails" ></p> -->
+                        <!-- <p class="medDetails" >Dolo650</p> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="CusBill">
+        
+    </div>
+</body>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+                const headerContainer = document.getElementById('floated-container');
+                const headerContainer2 = document.getElementById('header-container');
+
+                function openMenu() {
+                    let menu = document.querySelector('.menu');
+                    let togg = document.querySelector(".toggle");
+                    menu.classList.toggle('active');
+
+                }
+
+                fetch("animationNav/index.html")
+                .then(response => response.text())
+                .then(html => {
+                    headerContainer.innerHTML = html;
+                    const toggle = headerContainer.querySelector('.toggle');
+                    toggle.addEventListener('click', openMenu);
+                });
+                
+                fetch("layout/header.html")
+                .then(response => response.text())
+                .then(html => {
+                    headerContainer2.innerHTML = html;
+                    const title = headerContainer2.querySelector('.current-Page');
+                    title.innerHTML = "Billing"
+                });
+            
+        });
+            
+</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch Images from Firebase</title>
+    <!-- <script type="module">
+
+  </script> -->
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+
+      .image-container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .image-container img {
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fetched Images</h1>
+    <div class="image-container"></div>
+    <script type="module">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getStorage,
+        ref,
+        listAll,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+      // Replace with your Firebase project configuration
+      const firebaseConfig = {
+        // ... your Firebase config
+        apiKey: "AIzaSyDUKJBzdWiRqYxKvUKOS3_GTItXuqUX4gY",
+        authDomain: "mynirogya.firebaseapp.com",
+        databaseURL:
+          "https://mynirogya-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "mynirogya",
+        storageBucket: "mynirogya.appspot.com",
+        messagingSenderId: "159595452167",
+        appId: "1:159595452167:web:e122a0828bb1f8ee7117a2",
+        measurementId: "G-DRWEPNQD1P",
+      };
+
+      // Initialize Firebase app
+      const app = initializeApp(firebaseConfig);
+      const storage = getStorage(app);
+      // Get a reference to the images folder
+      const imagesRef = ref(storage, "123456"); // Replace "images" with your desired location
+
+      // List all images in the folder
+      listAll(imagesRef)
+        .then((res) => {
+          const imageUrlsPromises = res.items.map((itemRef) =>
+            getDownloadURL(itemRef)
+          );
+          Promise.all(imageUrlsPromises)
+            .then((imageUrls) => {
+              const imageContainer = document.querySelector(".image-container");
+              imageUrls.forEach((url) => {
+                console.log(url);
+                const img = document.createElement("img");
+                img.src = url;
+                imageContainer.appendChild(img);
+              });
+            })
+            .catch((error) => {
+              console.error("Error fetching image URLs:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error listing images:", error);
+        });
+    </script>
+  </body>
+</html>

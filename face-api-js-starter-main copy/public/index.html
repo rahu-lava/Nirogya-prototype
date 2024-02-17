@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Face detection on the browser using JavaScript!</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .center {
+        display: flex;
+        flex-direction: row;
+      }
+      .yourName {
+        width: 250px;
+      }
+      .cameraDiv {
+        display: grid;
+        place-items: center;
+        position: relative;
+        width: 600px; /* Adjust width as needed */
+        height: 450px; /* Adjust height as needed */
+      }
+
+      #video {
+        grid-area: 1 / 1;
+        z-index: 1;
+      }
+      .Confirm {
+        background-color: rgb(49, 198, 49);
+        padding: 20px;
+      }
+      canvas {
+        grid-area: 1 / 1;
+        z-index: 2;
+      }
+    </style>
+    <script defer src="face-api.min.js"></script>
+    <script defer src="scripts.js"></script>
+  </head>
+  <body>
+    <center class="center">
+      <div class="cameraDiv">
+        <video id="video" width="600" height="450" autoplay></video>
+        <!-- <canvas id="overlay" width="600" height="450"></canvas> -->
+      </div>
+      <div class="yourName">
+        <h2>Name :</h2>
+        <div class="Confirm">Confirm Attendence</div>
+      </div>
+    </center>
+  </body>
+</html>

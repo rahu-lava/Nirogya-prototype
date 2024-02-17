@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <style>
+      * {
+        font-size: 1.2em;
+        font-family: "Noto Sans", sans-serif;
+        /* font-family: 'Roboto Mono', monospace;   */
+        /* font-family: ; */
+      }
+
+      #floated-container {
+        font-size: 0.6rem;
+      }
+
+      .container {
+        display: flex;
+        margin-top: 75px;
+      }
+      .secOne {
+        width: 20%;
+      }
+      .statsCards {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        align-items: center;
+        height: max-content;
+        /* width: 25%; */
+        /* height: 50%; */
+        /* font-size: 1.8rem; */
+      }
+      .statsCards > div {
+        width: 195px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* padding: 20px; */
+        background-color: rgb(241, 241, 241);
+        border-radius: 15px;
+        margin: 10px;
+      }
+      .statsCards > div > h5 {
+        font-size: 1.4rem;
+      }
+      .statsCards > div > p {
+        font-size: 1.8rem;
+      }
+      .secTwo {
+        background-color: rgb(255, 255, 255);
+        height: 87vh;
+        padding: 20px;
+        border: 1px solid #c5c5c5;
+        border-radius: 15px;
+        width: 78%;
+      }
+      .searchField {
+        display: flex;
+        border: 1px solid #fac4c4;
+        border-radius: 10px;
+        background-color: white;
+        width: max-content;
+        /* padding: 7px 10px; */
+      }
+      .searchField > div {
+        display: flex;
+        color: #920000;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.1rem;
+        background: #ffd3d3;
+        /* border: 1px solid #f4e0e0; */
+        /* margin: 5px; */
+        padding: 10px;
+        border-radius: 10px;
+      }
+      .searchField > div > * {
+        margin: 0px 5px;
+      }
+      .searchField > input {
+        font-size: 1rem;
+        padding: 0px 10px;
+        /* background-color: #efbaba; */
+        border-radius: 20px;
+        outline: none;
+        border: none;
+        width: 475px;
+      }
+      .searchTop {
+        display: flex;
+        justify-content: space-around;
+      }
+      .filterDiv,
+      .addDiv,
+      .orderStock {
+        font-size: 0.9rem;
+        padding: 0px 15px;
+        /* width: 17%; */
+        display: flex;
+        /* border: 1px solid #ff9797; */
+        color: #920000;
+        border-radius: 10px;
+        justify-content: space-between;
+        align-items: center;
+        /* background: #ffe4e4; */
+        background-color: #ffd3d3;
+        /* background-color: #eb9a9a; */
+      }
+      /* .addDiv {
+        color: white;
+        background-color: #920000;
+      } */
+      .filterDiv > *,
+      .addDiv > *,
+      .orderStock > * {
+        margin: 0px 5px;
+      }
+      .searchResult {
+        /* border: 1px solid #ffa2a2; */
+        border-bottom: 0.6px solid #fa8585c2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        background-color: white;
+        /* width: 99%; */
+        height: 75px;
+        margin: 15px 30px;
+      }
+      .searchResult > * {
+        width: 25%;
+        text-align: center;
+      }
+      .searchBottom {
+        margin: 10px 0px;
+        padding: 10px;
+
+        /* background-color: #feb9b9; */
+        height: 95%;
+      }
+      .searchBottomTop > * {
+        width: 20%;
+        color: #920000;
+        font-weight: 500;
+        text-align: center;
+      }
+      .searchBottomTop {
+        /* margin: 15px; */
+        border-radius: 7px;
+        padding: 15px 0px;
+        background-color: rgb(252, 206, 206);
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        margin: 15px 25px;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      .searchBottomBody {
+        height: 80%;
+        overflow-y: scroll;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        /* overflow: scroll; */
+      }
+      .statsCard1:hover,
+      .statsCard3:hover {
+        background-color: #920000;
+        color: white;
+      }
+      .statsCard2:hover,
+      .statsCard4:hover {
+        background-color: #f2ff00;
+      }
+      .statsCard1:hover,
+      .statsCard2:hover,
+      .statsCard3:hover,
+      .statsCard4:hover {
+        transition: all 0.6s ease-in-out;
+      }
+      .searchField > .suggBox {
+        /* position: relative; */
+        /* position: absolute; */
+        /* top: 150px; */
+        padding: 0px;
+        /* right: 475px; */
+        /* display: none; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="header-container"></div>
+    <div id="floated-container"></div>
+    <div class="container">
+      <section class="secOne">
+        <div class="SoDivOne">
+          <div class="statsCards">
+            <div class="statsCard1" style="border: 1.7px solid #ff0000">
+              <h5>Expired</h5>
+              <p>5</p>
+            </div>
+            <div class="statsCard2" style="border: 1.7px solid #ffd500">
+              <h5>Soon Expiry</h5>
+              <p>11</p>
+            </div>
+            <div class="statsCard3" style="border: 1.7px solid #ff0d00">
+              <h5>Out of Stock</h5>
+              <p>11</p>
+            </div>
+            <div class="statsCard4" style="border: 1.7px solid #ffd500">
+              <h5>Low Stock</h5>
+              <p>11</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="secTwo">
+        <div class="searchTop">
+          <div class="searchField">
+            <input type="text" placeholder=" Search Medicine..." />
+            <div class="searchDiv">
+              <i
+                class="fa-duotone fa-magnifying-glass"
+                style="
+                  --fa-primary-color: #920000;
+                  --fa-secondary-color: #920000;
+                "
+              ></i>
+              <h4>Search</h4>
+              <!-- <button>Search</button> -->
+            </div>
+
+            <div class="suggBox"></div>
+            <!-- Suggestion Box Is here !  -->
+          </div>
+
+          <div class="filterDiv">
+            <i class="fa-solid fa-filter" style="color: #ff7777"></i>
+            <h4>Filter</h4>
+          </div>
+          <div class="addDiv">
+            <i
+              class="fa-duotone fa-circle-plus"
+              style="
+                --fa-primary-color: #670b0b;
+                --fa-secondary-color: #ffb7b7;
+                --fa-secondary-opacity: 0.9;
+              "
+            ></i>
+            <h4>Add Stock</h4>
+          </div>
+          <div class="orderStock">
+            <i
+              class="fa-duotone fa-cart-shopping"
+              style="--fa-primary-color: #920000; --fa-secondary-color: #920000"
+            ></i>
+            <h4>Order Stock</h4>
+          </div>
+        </div>
+        <div class="searchBottom">
+          <div class="searchBottomTop">
+            <p>Name</p>
+            <p>Price</p>
+            <p>Expiry</p>
+            <p>Quantity</p>
+            <p>Batch No.</p>
+          </div>
+          <div class="searchBottomBody">
+            <div class="searchResult">
+              <h5>Dolo 650 tablet</h5>
+              <p>169</p>
+              <p>12/24</p>
+              <p>11</p>
+              <p>ABC201</p>
+            </div>
+            <div class="searchResult">
+              <h5>Dolo 650 tablet</h5>
+              <p>169</p>
+              <p>12/24</p>
+              <p>11</p>
+              <p>ABC201</p>
+            </div>
+            <div class="searchResult">
+              <h5>Dolo 650 tablet</h5>
+              <p>169</p>
+              <p>12/24</p>
+              <p>11</p>
+              <p>ABC201</p>
+            </div>
+            <div class="searchResult">
+              <h5>Dolo 650 tablet</h5>
+              <p>169</p>
+              <p>12/24</p>
+              <p>11</p>
+              <p>ABC201</p>
+            </div>
+            <div class="searchResult">
+              <h5>Dolo 650 tablet</h5>
+              <p>169</p>
+              <p>12/24</p>
+              <p>11</p>
+              <p>ABC201</p>
+            </div>
+            <div class="searchResult">
+              <h5>Dolo 650 tablet</h5>
+              <p>169</p>
+              <p>12/24</p>
+              <p>11</p>
+              <p>ABC201</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const headerContainer = document.getElementById("floated-container");
+      const headerContainer2 = document.getElementById("header-container");
+
+      function openMenu() {
+        let menu = document.querySelector(".menu");
+        let togg = document.querySelector(".toggle");
+        menu.classList.toggle("active");
+      }
+
+      fetch("../../animationNav/index.html")
+        .then((response) => response.text())
+        .then((html) => {
+          headerContainer.innerHTML = html;
+          const toggle = headerContainer.querySelector(".toggle");
+          toggle.addEventListener("click", openMenu);
+        });
+
+      fetch("../../layout/header.html")
+        .then((response) => response.text())
+        .then((html) => {
+          headerContainer2.innerHTML = html;
+          const title = headerContainer2.querySelector(".current-Page");
+          title.innerHTML = "Stocks";
+        });
+    });
+  </script>
+</html>

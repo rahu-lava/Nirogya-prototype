@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      margin: 0px;
+    }
+    .popUp {
+      position: fixed;
+      /* margin: 10%; */
+      top: 50%;
+      transform: translateY(-50%);
+      overflow: hidden;
+      /* left: 25%; */
+      width: 0%;
+      height: 0%;
+      background: #ffffff;
+    }
+    .popUp > * {
+      opacity: 0;
+    }
+    .popUp > * {
+      opacity: 1;
+      transition: all 300ms ease-in-out 1500ms;
+    }
+    .popUp.active {
+      animation: popupAnimation 1500ms ease-in-out forwards;
+    }
+
+    @keyframes popupAnimation {
+      0% {
+        width: 0;
+        height: 0;
+      }
+      /* 25%{
+        width: 50%;
+        height: 0;
+    } */
+      50% {
+        width: 100%;
+        height: 2px;
+      }
+      /* 75%{
+        width: 100%;
+        height: 50%;
+    } */
+      100% {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    tr,
+    th,
+    td {
+      text-align: center;
+      border-radius: 3px;
+      border: 1px solid black;
+      padding: 5px 10px;
+    }
+    th {
+      background-color: #f1d5d5;
+    }
+    td {
+      padding: 3px 3px;
+      /* padding : 10px 25px ; */
+    }
+    td > input {
+      text-align: center;
+      width: 90%;
+      /* padding: 5px 10px ; */
+      outline: none;
+      /* border: 1px solid red; */
+      border: none;
+    }
+    td > input[type="number"] {
+      width: 90%;
+      /* display: flex; */
+      /* flex: 1; */
+      /* width: 100%; */
+      /* size: 10; */
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield; /* Firefox */
+    }
+    h2 {
+      text-align: center;
+    }
+    .shopSection {
+      padding: 20px;
+      height: 25vh;
+      display: flex;
+      justify-content: space-around;
+    }
+    .shopDet {
+      padding: 15px;
+      /* border-right: 3px dotted #920000; */
+    }
+    .payDet {
+      text-align: center;
+      /* border-right: 3px dotted #920000; */
+    }
+    .invoiceNo {
+      font-size: 1.1rem;
+    }
+    .invoiceNo,
+    .payDate {
+      margin: 10px;
+    }
+    .invoiceNo > span,
+    .payDate > span {
+      font-size: 1.25rem;
+      font-weight: bold;
+      padding: 5px;
+    }
+    /* .payType{
+    padding: 15px;
+    font-size: 1.7em;
+
+} */
+    /* .payType > label , input[type=radio]  {
+        font-size: 1.3rem;
+        
+    }
+    input[type=radio]{
+
+    } */
+    .billHeader {
+      display: flex;
+      /* margin: 10px 0px; */
+      gap: 30%;
+      padding: 15px;
+      background-color: #f1d5d5;
+      border-top: 2px solid #920000;
+      border-bottom: 2px solid #920000;
+      /* align-items: center; */
+      justify-content: center;
+      height: 50px;
+    }
+    .shopSection {
+      /* width: 100%; */
+      border-bottom: 2px solid #920000;
+    }
+    .billSection {
+      margin: 10px 0px;
+      overflow: scroll;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .billLogo > img {
+      padding: 5px;
+    }
+    .billHeader > h1 {
+      text-align: center;
+      margin: auto 0px;
+      /* vertical-align: auto; */
+    }
+    .actionFoot {
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      bottom: 0px;
+      /* right: 0px; */
+      padding: 10px 0px;
+      width: 100vw;
+      border: 1px solid black;
+    }
+
+    .actionFoot span {
+      font-size: 1.5rem;
+      padding: 5px 10px;
+      /* text-align: center; */
+    }
+    .actionFoot > span > .totalAmt {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    .actionBtn {
+      padding: 10px;
+    }
+    .actionBtn > button {
+      padding: 10px 18px;
+      /* border: none; */
+      border-radius: 20px;
+      font-size: 1.3rem;
+      color: #000;
+    }
+    .proceed {
+      border: 2px solid rgb(36, 211, 74);
+      /* border-color: rgb(36, 211, 74); */
+    }
+    .close {
+      border: 2px solid rgb(223, 79, 79);
+      /* background-color: rgb(223, 79, 79); */
+    }
+    .shopDet > * {
+      margin: 10px;
+    }
+    .shopName {
+      font-size: 3rem;
+    }
+    .shopAdd {
+      font-size: 1.5rem;
+    }
+    .shopNumber {
+      font-size: 1.2rem;
+    }
+    .shopGstin {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    .shopScan {
+      height: 100%;
+    }
+    table {
+      margin: 0px auto;
+    }
+
+    img {
+      height: 100%;
+    }
+  </style>
+
+  <body>
+    <div class="popUp">
+      <header class="billHeader">
+        <h1>Tax Invoice</h1>
+      </header>
+
+      <div class="shopSection">
+        <div class="shopDet">
+          <div class="shopName">NOBLE MEDICAL SHOP</div>
+          <div class="shopAdd">Jagdusha Nagar , Ghatkopar , Mumbai-86</div>
+          <div class="shopNumber">9876543201</div>
+          <div class="shopGstin"><span>GSTIN : </span>27FFFATS2794P1ZP</div>
+        </div>
+        <div class="payDet">
+          <!-- <div class="payType"> <span>Payment : </span> 
+                <input type="radio" id="html" value="Cash">
+                 <label for="html">Cash</label>
+                
+                </div> -->
+          <div class="payHead"><h2>Payment Details</h2></div>
+          <div class="invoiceNo"><span>Invoice No. : </span> CA/6969</div>
+          <div class="payDate"><span>Date : </span> 21/12/2023</div>
+        </div>
+        <!-- <div class="shopScan">
+        <img src="/my scan.png" alt="">
+       </div> -->
+      </div>
+      <div class="billSection">
+        <!-- <div class="billHeading"></div> -->
+        <table class="billTable">
+          <tr>
+            <th rowspan="2">HSN Code</th>
+            <th rowspan="2">Product Name</th>
+            <th rowspan="2">Batch No.</th>
+            <th rowspan="2">Exp</th>
+            <th rowspan="2">Qty</th>
+            <th rowspan="2">M.R.P.</th>
+            <!-- <th rowspan="2">Rate</th> -->
+            <th rowspan="2">Amount</th>
+            <th rowspan="2">Discount</th>
+            <th rowspan="2">Taxable</th>
+            <th colspan="2">CGST</th>
+            <th colspan="2">SGST</th>
+            <th rowspan="2">Total</th>
+          </tr>
+          <tr>
+            <th>Rate</th>
+            <th>Amt.</th>
+            <th>Rate</th>
+            <th>Amt.</th>
+          </tr>
+          <tr></tr>
+        </table>
+      </div>
+      <div class="actionFoot">
+        <span>Total Amount : <span class="totalAmt">149</span></span>
+        <div class="actionBtn">
+          <button class="proceed">Proceed</button>
+          <button class="close">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="Show">Show</button>
+  </body>
+  <script type="module">
+    function appendDataToContainer(data) {
+      console.log("i am in");
+      let showBtn = document.querySelector(".Show");
+      showBtn.click();
+      // Create a new element for the data
+      let tableVal = document.querySelector(".billTable");
+
+      const newDataElement = document.createElement("div");
+      //   newDataElement.textContent = data;
+      tableVal.innerHTML += `            <tr >
+                <td><input type="text" value="3400"></td>
+                <td><input type="text" value="Dolo 650"></td>
+                <td><input type="text" value="K234765"></td>
+                <td><input type="text"  value="9/24"></td>
+                <td><input type="number" value="1"></td>
+                <td><input type="number" value="149.00"></td>
+                <!-- <td><input type="number" min="0" max="9" value="133.04"></td> -->
+                <td><input type="number" value="133.04"></td>
+                <td><input type="number" value="0.00"></td>
+                <td><input type="number" value="133.04"></td>
+                <td><input type="text" value="6%"></td>
+                <td><input type="number" value="7.98"></td>
+                <td><input type="text" value="6%"></td>
+                <td><input type="number" value="7.98"></td>
+                <td><input type="number" value="149"></td>
+            </tr>`;
+
+      //   // Append the new element to the container
+      //   const container = document.getElementById('scannedDataContainer');
+      //   container.appendChild(newDataElement);
+    }
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import {
+      getDatabase,
+      ref,
+      set,
+      get,
+      onValue,
+      remove,
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    // import { getDatabase, ref } from "firebase/database";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyAtNx2EeI1o8kEGoPblPHxbnl5dAiMB6HA",
+      authDomain: "chatsystem-test.firebaseapp.com",
+      databaseURL:
+        "https://chatsystem-test-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "chatsystem-test",
+      storageBucket: "chatsystem-test.appspot.com",
+      messagingSenderId: "148170669948",
+      appId: "1:148170669948:web:6b5bda27783a9d87302ef9",
+      measurementId: "G-ETJRDLGRBW",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Get a reference to the database
+    const database = getDatabase(app);
+    const scannedDataRef = ref(database, "Shopkeeper/medicine/code");
+    remove(scannedDataRef);
+    // Array to store unique values
+    let uniqueValues = [];
+
+    // Listen for changes in the 'Shopkeeper/medicine/code' node
+    onValue(scannedDataRef, (snapshot) => {
+      const scannedData = snapshot.val();
+      console.log(scannedData);
+      // Append the new data to the container
+      if (scannedData) {
+        // Check for duplicates before processing and saving
+        if (!uniqueValues.includes(scannedData)) {
+          uniqueValues.push(scannedData);
+          appendDataToContainer(scannedData);
+        }
+      }
+
+      remove(scannedDataRef);
+    });
+  </script>
+
+  <script>
+    function popAni() {
+      document.querySelector(".Show").addEventListener("click", function () {
+        document.querySelector(".popUp").classList.add("active");
+      });
+      document.querySelector(".close").addEventListener("click", function () {
+        document.querySelector(".popUp").classList.remove("active");
+      });
+      uniqueValues = [];
+    }
+    popAni();
+  </script>
+</html>

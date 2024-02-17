@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload to Supabase</title>
+  </head>
+  <body>
+    <h1>Upload Your Image</h1>
+    <input type="file" id="image-upload" accept="image/*" />
+    <button id="upload-button">Upload Image</button>
+    <p id="image-url"></p>
+    <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script> -->
+
+    <script type="module">
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+      const fileInput = document.getElementById("image-upload");
+      const uploadButton = document.getElementById("upload-button");
+      const imageUrlElement = document.getElementById("image-url");
+
+      // Replace with your Supabase client configuration
+      const supabase = createClient(
+        "https://tqnvuhtupkpkoflrodls.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxbnZ1aHR1cGtwa29mbHJvZGxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc4NDM2NTksImV4cCI6MjAyMzQxOTY1OX0.6owhxIO22vR8Aoi081cfv7fq6HvFIwIvQIxUsAawEW8"
+      );
+
+      uploadButton.addEventListener("click", async () => {
+        const selectedFile = fileInput.files[0];
+
+        // Check if a file is selected and it's an image
+        if (!selectedFile || !selectedFile.type.startsWith("image/")) {
+          return alert("Please select an image file.");
+        }
+
+        // Generate a unique filename
+        const filename = `${Date.now()}-${selectedFile.name}`;
+
+        // Show upload progress (optional)
+        const progressBar = document.createElement("progress");
+        progressBar.max = 100;
+        document.body.appendChild(progressBar);
+
+        try {
+          const { data, error } = await supabase.storage
+            .from("face") // Replace 'images' with your bucket name
+            .upload(filename, selectedFile, {
+              onUploadProgress: ({ progress }) => {
+                progressBar.value = progress;
+              },
+            });
+
+          if (error) {
+            throw error;
+          }
+
+          // Get the uploaded image URL
+          const imageUrl = await supabase.storage
+            .from("face") // Replace 'images' with your bucket name
+            .getPublicUrl(filename);
+
+          console.log(imageUrl);
+
+
+          // Display the uploaded image URL
+          imageUrlElement.textContent = `Image URL: ${imageUrl.data.publicUrl}`;
+
+          // Optionally, save the URL to your database
+
+          // Remove progress bar (optional)
+          document.body.removeChild(progressBar);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+          alert("An error occurred. Please try again later.");
+        }
+      });
+    </script>
+  </body>
+</html>

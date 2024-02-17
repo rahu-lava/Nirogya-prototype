@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      height: 100vh;
+    }
+    h1 {
+      display: flex;
+      /* text-align: center; */
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      align-items: center;
+      /* text-align: center; */
+      margin: 15% auto;
+      width: max-content;
+    }
+    input {
+      border: 1px solid grey;
+      padding: 10px;
+      width: 200px;
+      border-radius: 10px;
+    }
+    p {
+      /* position: relative; */
+      /* top: 100px; */
+
+      color: rgb(141, 141, 141);
+      /* border: 1px solid rgb(180, 177, 177); */
+      width: 200px;
+      margin: 0px;
+      padding: 8px;
+      /* border-radius: 20px; */
+      /* display: none; */
+    }
+    .sugg > span {
+      font-size: 12px;
+      color: rgb(196, 195, 195);
+    }
+    .yellowBg {
+      background-color: rgb(241, 241, 93);
+      color: #000;
+      border-radius: 10px;
+    }
+    .yellowBg > span {
+      color: rgb(1, 137, 42);
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Search</h1>
+      <input type="text" id="srcIn" />
+      <div class="suggBox"></div>
+      <!-- <p>Dolo 650</p> -->
+    </div>
+  </body>
+  <!-- Add this script tag in your HTML file to include the Firebase SDK
+<script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js"></script> -->
+
+  <!-- Your existing HTML and CSS -->
+
+  <script type="module">
+    // Initialize Firebase with your config
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    // import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import {
+      getDatabase,
+      ref,
+      set,
+      get,
+      child,
+      onValue,
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    // Update with your actual Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUKJBzdWiRqYxKvUKOS3_GTItXuqUX4gY",
+      authDomain: "mynirogya.firebaseapp.com",
+      databaseURL:
+        "https://mynirogya-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "mynirogya",
+      storageBucket: "mynirogya.appspot.com",
+      messagingSenderId: "159595452167",
+      appId: "1:159595452167:web:87da13cca13f503b7117a2",
+      measurementId: "G-6D245FXKBF",
+    };
+
+    // let dataHolder = null; // this will hold the data of the medicine based on the medicines name(Object)
+    const medMap = new Map(); // this will be saving the already fetched data from the database
+    // let searchFlagMap = new Map(); // this will be used to avoid seacrh for same data frequently
+    let hasBeenSearched = [];
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    let cont = document.querySelector(".suggBox");
+    let myIn = document.querySelector("#srcIn");
+
+    myIn.addEventListener("input", () => {
+      console.log("i am in");
+      const userInput = myIn.value;
+
+      if (userInput.length <= 1) {
+        cont.innerHTML = "";
+        console.log("i am in 2");
+        return;
+      } else if (userInput.length >= 2) {
+        const initialLetter = userInput.charAt(0).toUpperCase();
+        const secondLetter = userInput.charAt(1).toLowerCase();
+        if (medMap.has(initialLetter + secondLetter)) {
+          // console.log(medMap);
+          // console.log(medMap.get(initialLetter + secondLetter));
+          Suggestion(
+            searchInFile(userInput, medMap.get(initialLetter + secondLetter))
+          );
+        } else {
+          getData(initialLetter, secondLetter);
+        }
+      }
+    });
+
+    function getData(initialLetter, secondLetter) {
+      // initialLetter has userInput's first 2 character
+
+      const myStr = `data/${initialLetter}_data/data_${
+        secondLetter === " " ? "" : secondLetter
+      }`;
+      //   const databaseRef = ref(database, `/${initialLetter}_data`);
+      const databaseRef = ref(database);
+      // console.log(myStr);
+
+      try {
+        if (!hasBeenSearched.includes(initialLetter + secondLetter)) {
+          hasBeenSearched.push(initialLetter + secondLetter);
+          get(child(databaseRef, myStr)).then((snapshot) => {
+            console.log("andar aaya");
+            const dataHolder = snapshot.val();
+            medMap.set(initialLetter + secondLetter, dataHolder);
+              Suggestion(dataHolder);
+            // console.log(snapshot.val());
+          });
+        }
+      } catch (error) {
+        console.error("Error loading data from Firebase:", error);
+        // Handle the error gracefully, e.g., display an error message to the user
+      }
+      console.log("end");
+    }
+    // ... remaining code with potential updates (error handling, DOM manipulation, etc.)
+
+    // Function to search within the loaded file
+    function searchInFile(input, fileData) {
+      const searchInput = input.toLowerCase();
+
+      if (!fileData) {
+        return [];
+      }
+
+      return Object.values(fileData).filter((item) => {
+        return item.Name.toLowerCase().includes(searchInput);
+      });
+    }
+
+    function Suggestion(result) {
+      console.log("here" + result);
+
+      let topVal = result.slice(0, 4);
+      console.log(topVal);
+      cont.innerHTML = "";
+
+      for (let i = 0; i < 4; i++) {
+        cont.innerHTML += `<p class="sugg">${topVal[i].Name} <br> <span>${topVal[i].Description}</span></p>`;
+      }
+    }
+
+    let CurrIndex = -1;
+
+    myIn.addEventListener("keydown", function (event) {
+      let sugg = cont.querySelectorAll(".sugg");
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+
+        if (event.key === "ArrowDown") {
+          CurrIndex = (CurrIndex + 1) % sugg.length;
+        } else {
+          CurrIndex = (CurrIndex - 1 + sugg.length) % sugg.length;
+        }
+
+        sugg.forEach((s) => s.classList.remove("yellowBg"));
+        sugg[CurrIndex].classList.add("yellowBg");
+
+        myIn.focus();
+        console.log(sugg);
+      }
+
+      if (event.key === "Enter") {
+        console.log(cont.querySelector(".yellowBg"));
+      }
+    });
+  </script>
+</html>

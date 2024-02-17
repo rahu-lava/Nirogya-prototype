@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        height: 100vh;
+    }
+    h1{
+        display: flex;
+        /* text-align: center; */
+        align-items: center;
+        justify-content: center;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        align-items: center;
+        /* text-align: center; */
+        margin: 15% auto; 
+        width: max-content;
+    }
+    input{
+        border: 1px solid grey;
+        padding:10px;
+        width:200px;
+        border-radius: 10px;
+
+    }
+    p{
+        /* position: relative; */
+        /* top: 100px; */
+        
+        color: rgb(141, 141, 141);
+        /* border: 1px solid rgb(180, 177, 177); */
+        width: 200px;
+        margin: 0px;
+        padding: 8px;
+        /* border-radius: 20px; */
+        /* display: none; */
+}
+.sugg > span{
+    font-size: 12px;
+    color: rgb(196, 195, 195);
+}
+.yellowBg {
+    background-color: rgb(241, 241, 93);
+    color: #000;
+    border-radius: 10px;
+}
+.yellowBg > span{
+    color: rgb(1, 137, 42);
+}
+</style>
+<body>
+    <div class="container">
+        <h1>Search</h1>
+        <input type="text" id="srcIn">
+        <div class="suggBox">
+
+        </div>
+        <!-- <p>Dolo 650</p> -->
+    </div>
+</body>
+<script>
+let cont = document.querySelector(".suggBox");
+let myIn = document.querySelector('#srcIn');
+myIn.addEventListener("input" , function(){
+    
+    const userInput = this.value.trim(); // Get the user's input and trim whitespace
+    
+    if (userInput.length === 0){
+        cont.innerHTML = '' 
+        return;
+    } ; // Don't search if the input is empty
+
+    // Identify the relevant file based on the initial letter
+    const initialLetter = userInput.charAt(0).toUpperCase();
+    console.log(initialLetter);
+    const fileName = `../../MedData/data/${initialLetter}_data.json`;
+
+    // Load the relevant file
+    fetch(fileName)
+        .then(response => response.json())
+        .then(fileData => {
+            // Refine the search within the file
+            const searchResults = searchInFile(userInput, fileData);
+
+            Suggestion(searchResults);
+
+            // Display or process the search results as needed
+            console.log('Search Results:', searchResults);
+        })
+        .catch(error => console.error(`Error loading ${fileName}:`, error));
+});
+
+// Function to search within the loaded file
+function searchInFile(input, fileData) {
+    const searchInput = input.toLowerCase();
+
+    return fileData.filter(item => {
+        return item.Name.toLowerCase().includes(searchInput);
+    });
+
+}   
+function Suggestion(result){
+    
+
+    let topVal = result.slice(0,4);
+    // let cont = document.querySelector(".suggBox")
+    cont.innerHTML = ''
+    
+    for(let i=0 ;i<4;i++){
+        console.log(cont);
+        cont.innerHTML += `<p class="sugg" > ${topVal[i].Name} <br> <span> ${topVal[i].Description} </span></p>` 
+    }
+
+    console.log(topVal)
+
+
+}
+
+
+let CurrIndex = -1 ;
+// Check if the pressed key is the down arrow key
+
+myIn.addEventListener('keydown', function(event) {
+    let sugg = cont.querySelectorAll(".sugg");
+    if (event.key === 'ArrowDown' || event.key ==="ArrowUp") {
+        event.preventDefault();
+        
+        if(event.key === "ArrowDown"){
+            CurrIndex = (CurrIndex + 1) % sugg.length;
+        }else{
+            CurrIndex = (CurrIndex - 1 + sugg.length) % sugg.length ;
+        }
+
+        // Remove the 'yellowBg' class from all suggestions
+        sugg.forEach(s => s.classList.remove('yellowBg'));
+
+        // Add the 'yellowBg' class to the current suggestion
+        sugg[CurrIndex].classList.add('yellowBg');
+
+        // Set focus on the input to allow continued typing
+        myIn.focus();
+        // Your logic when the down arrow key is pressed for the input
+        console.log(sugg);
+        
+        // You can add more functionality here, like navigating through a dropdown.
+    }
+    if(event.key==='Enter'){
+        console.log(cont.querySelector(".yellowBg"));
+    }
+});
+
+</script>
+</html>

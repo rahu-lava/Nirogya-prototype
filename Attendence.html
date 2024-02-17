@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nirogya | Attendence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <style>
+      * {
+        font-size: 1.2em;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      body {
+        display: flex;
+      }
+
+      #floated-container {
+        font-size: 0.6rem;
+      }
+
+      .secOne {
+        width: 48vw;
+        margin-left: 1vw;
+        height: 87vh;
+        /* border: 1px solid red; */
+        margin-top: 80px;
+      }
+
+      .cards {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .cards i {
+        margin: 0px;
+      }
+
+      .cards > div > * {
+        margin: 15px;
+      }
+
+      .cards p {
+        color: #920000;
+      }
+
+      .cards h3 {
+        /* border: 1px solid red; */
+        text-align: center;
+        margin: 10px 0px 5px 0px;
+        font-size: 1.8rem;
+        /* font-size: 16px; */
+        /* color: #920000; */
+      }
+
+      .cards h6 {
+        margin: 0px 0px 10px 0px;
+        font-size: 1rem;
+        color: rgb(122, 122, 122);
+        text-align: center;
+      }
+
+      .cards {
+        text-align: center;
+      }
+
+      .cards div {
+        /* height: 210px; */
+        width: 30%;
+        font-size: 1.4rem;
+        border: 1px solid #f773739f;
+        border-radius: 15px;
+        /* background-color: #e1e1e1; */
+        /* border: 1px solid red; */
+      }
+
+      .Ccard {
+        display: flex;
+        background: #ffd3d3;
+        padding: 7px;
+        font-size: 30px;
+        justify-content: center;
+        align-items: center;
+        height: 120px;
+        width: 28%;
+      }
+
+      .searchTop {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .searchEmp {
+        margin-top: 25px;
+        height: 60%;
+      }
+
+      .searchField {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #fac4c4;
+        border-radius: 10px;
+        background-color: white;
+        width: max-content;
+        /* padding: 7px 10px; */
+      }
+
+      .searchField > div {
+        display: flex;
+        color: #920000;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        background: #ffd3d3;
+        /* border: 1px solid #f4e0e0; */
+        /* margin: 5px; */
+        padding: 10px;
+        border-radius: 10px;
+      }
+
+      .searchField > div > * {
+        margin: 0px 5px;
+      }
+
+      .searchField > input {
+        font-size: 0.8rem;
+        padding: 0px 10px;
+        /* background-color: #efbaba; */
+        border-radius: 20px;
+        outline: none;
+        border: none;
+        width: 400px;
+      }
+
+      .searchBottom {
+        /* margin: 10px 0px; */
+        padding: 10px;
+        /* background-color: #feb9b9; */
+        height: 90%;
+      }
+
+      .addEmp {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+        width: max-content;
+        /* width: 17%; */
+        display: flex;
+        /* border: 1px solid #ff9797; */
+        color: #920000;
+        border-radius: 10px;
+        /* justify-content: space-between; */
+        align-items: center;
+        /* background: #ffe4e4; */
+        background-color: #ffd3d3;
+        /* background-color: #eb9a9a; */
+      }
+
+      .addEmp > * {
+        margin: 0px 3px;
+      }
+
+      .searchBottomTop {
+        /* margin: 15px; */
+        border-radius: 7px;
+        padding: 10px 65px;
+        background-color: rgb(252, 206, 206);
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        margin: 7px 15px;
+      }
+
+      .searchResult {
+        /* border: 1px solid #ffa2a2; */
+        border-bottom: 0.6px solid #fa8585c2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        background-color: white;
+        /* width: 99%; */
+        height: 75px;
+        margin: 15px 30px;
+      }
+
+      .searchResult > * {
+        width: 25%;
+        text-align: center;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      .searchBottomBody {
+        height: 90%;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+        /* overflow: scroll; */
+      }
+
+      .secTwo {
+        width: 49vw;
+        border: 1px solid rgb(255, 169, 169);
+        background-color: #ffe9e9;
+        border-radius: 15px;
+        padding: 15px;
+        width: 48vw;
+        margin-left: 1vw;
+        height: 87vh;
+        /* border: 1px solid red; */
+        margin-top: 80px;
+      }
+
+      .profile {
+        display: flex;
+
+        gap: 7px;
+        padding: 5px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* height: 20%; */
+        /* width: 20%; */
+      }
+
+      .profileName {
+        font-size: 1.5rem;
+      }
+
+      .profilePost {
+        font-size: 1rem;
+        color: rgb(114, 114, 114);
+      }
+
+      .profileImg {
+        height: 175px;
+        width: 175px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #920000;
+      }
+
+      .profileImg > img {
+        height: 100%;
+      }
+
+      .EmpDetails {
+        width: 100%;
+        padding: 5px;
+        margin: 15px;
+        text-align: center;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .EmpDetails * {
+        padding: 5px;
+      }
+
+      .EmpDetails > div {
+        /* border: 1px solid #920000; */
+        width: 200px;
+        border-radius: 10px;
+      }
+
+      .EmpDetails h4 {
+        font-size: 1.6rem;
+      }
+
+      .EmpDetails p {
+        font-size: 0.8rem;
+      }
+      .detailCards {
+        margin-top: 30px;
+        display: flex;
+        color: #920000;
+        justify-content: space-around;
+        font-size: 1rem;
+      }
+      .detailCards div {
+        display: flex;
+        border-radius: 10px;
+        background-color: #ffd3d3;
+        border: 1px solid #f773739f;
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      /* ---------------- Pop up Animation ------------------- */
+
+      .popUp {
+        position: fixed;
+        /* transition: width 0.5s, height 0.5s, transform 0.5s; */
+        border-radius: 10px;
+        /* margin: 10%; */
+        top: 50%;
+        transform: translateY(-50%);
+        overflow: hidden;
+        /* left: 25%; */
+        width: 0%;
+        height: 0%;
+        background: #ffe9e9;
+      }
+      .popUp > * {
+        opacity: 0;
+      }
+      .popUp > * {
+        opacity: 1;
+        transition: all 400ms ease-in-out 1700ms;
+        /* transition: width 0.5s, height 0.5s, transform 0.5s; */
+      }
+      .popUp.active {
+        z-index: 10;
+        margin-left: 25%;
+        border: 3px dotted #f17272e7;
+        animation: popupAnimation 1700ms ease-in-out forwards;
+      }
+
+      @keyframes popupAnimation {
+        0% {
+          width: 0;
+          height: 0;
+        }
+        25% {
+          width: 11%;
+          height: 0;
+        }
+        50% {
+          width: 45%;
+          height: 2px;
+        }
+        75% {
+          width: 45%;
+          height: 40%;
+          /* height: max(40%, max-content); */
+        }
+        100% {
+          width: 45%;
+          /* height: max(50%, max-content); */
+          height: 50%;
+        }
+      }
+
+      /* ---------------- Pop up Animation ------------------- */
+
+      /* ---------------- Camera Div ------------------- */
+      .popUpBody {
+        display: flex;
+        flex-direction: row;
+        height: 90%;
+        justify-content: space-around;
+      }
+      .cameraDiv {
+        /* padding: 5px; */
+        display: flex;
+        /* width: max-content; */
+        width: 60%;
+        align-items: center;
+      }
+      .cameraDiv video {
+        border-radius: 10px;
+        /* border: 2px solid #920000; */
+      }
+      .popUpLabel,
+      .manualLabel,
+      .formLabel {
+        /* text-align: center; */
+        background: #ffd3d3;
+        padding: 7px 15px;
+        display: flex;
+        font-size: 1.4rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cameraAction {
+        width: 50%;
+        display: flex;
+        gap: 10%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .cameraAction h2 {
+        width: 100%;
+        font-size: 1.8rem;
+        text-align: left;
+      }
+      .confirmDiv {
+        font-size: 1.2rem;
+        width: max-content;
+        border-radius: 10px;
+        background-color: rgb(49, 198, 49);
+        padding: 10px 13px;
+      }
+
+      /* ---------------- Camera Div ------------------- */
+
+      /* ---------------- confirm Camera or manually ------------------- */
+
+      .alignConfirm {
+        /* Toggling Class */
+        display: flex;
+        flex-direction: column;
+      }
+      .confirmLabel {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #ffd3d3;
+        padding: 7px 15px;
+        font-size: 1.5rem;
+        width: 100%;
+      }
+      .confirmCont {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 80%;
+        width: 100%;
+      }
+      .confirmCamera,
+      .confirmManually {
+        display: flex;
+        gap: 7px;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 15px;
+        font-size: 1.5rem;
+        background-color: #fac4c4;
+        border-radius: 10px;
+        /* justify-content: center; */
+        width: max-content;
+        border: 1px solid #ffb7b7;
+      }
+
+      /* ---------------- confirm Camera or manually ------------------- */
+
+      /* ---------------- manual ------------------- */
+      .manualBody {
+        padding: 10px;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .dropDown {
+        display: flex;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+      }
+      .dropDown > * {
+        margin: 10px;
+      }
+      .alignConfirm .searchField {
+        padding: 15px;
+        margin: 5% auto;
+        width: 60%;
+        /* margin: auto 0; */
+      }
+      .alignConfirm .confirmDiv {
+        margin: 2% auto;
+      }
+      /* ---------------- manual ------------------- */
+
+      /* ---------------- form ------------------- */
+
+      .popUp form {
+        font-size: 1.1rem;
+      }
+      .popUp label {
+        margin: 5px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .popUp label input {
+        font-size: 1.1rem;
+        padding: 4px 10px;
+        /* background-color: #efbaba; */
+        border-radius: 10px;
+        outline: none;
+        border: 1px solid #ffb7b7;
+        width: 50%;
+      }
+      .chooseImage,
+      .chooseImage input {
+        /* font-size: 1rem; */
+        border: none;
+      }
+      /* ---------------- form ------------------- */
+    </style>
+  </head>
+
+  <body>
+    <div id="header-container"></div>
+    <div id="floated-container"></div>
+    <div class="popUp"></div>
+
+    <!-- <div class="popUpAddStaff">
+      <div class="headerAddStaff">
+        <p>Adding New Staff</p>
+        <i class="fa-solid fa-xmark close" style="color: #920000"></i>
+      </div>
+      <div class="bodyAddStaff">
+        <input type="text" required />
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="9876543210"
+          pattern="[0-9]{10}"
+          required
+        />
+        <input type="email" name="" id="" />
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        input
+      </div>
+    </div> -->
+
+    <div class="secOne">
+      <div class="cards">
+        <div class="card1">
+          <h3>Staff</h3>
+          <h6>Currently At Work</h6>
+          <p>4</p>
+        </div>
+        <div class="card2 Ccard">
+          <i
+            class="fa-duotone fa-arrow-right-to-bracket"
+            style="--fa-primary-color: #920000; --fa-secondary-color: #920000"
+          ></i>
+          Clock In
+        </div>
+        <div class="card3 Ccard">
+          Clock Out
+          <i
+            class="fa-duotone fa-arrow-right-from-bracket"
+            style="--fa-primary-color: #920000; --fa-secondary-color: #920000"
+          ></i>
+        </div>
+      </div>
+      <div class="searchEmp">
+        <div class="searchTop">
+          <div class="searchField">
+            <input type="text" placeholder=" Search Employees..." />
+            <div class="searchDiv">
+              <i
+                class="fa-duotone fa-magnifying-glass"
+                style="
+                  --fa-primary-color: #920000;
+                  --fa-secondary-color: #920000;
+                "
+              ></i>
+              <h4>Search</h4>
+              <!-- <button>Search</button> -->
+            </div>
+          </div>
+          <div class="addEmp">
+            <i
+              class="fa-duotone fa-circle-plus"
+              style="
+                --fa-primary-color: #670b0b;
+                --fa-secondary-color: #ffb7b7;
+                --fa-secondary-opacity: 0.9;
+              "
+            ></i>
+            <h4>New Staff</h4>
+          </div>
+        </div>
+        <div class="searchBottom">
+          <div class="searchBottomTop">
+            <p>Name</p>
+            <p>ID</p>
+          </div>
+          <div class="searchBottomBody">
+            <div class="searchResult">
+              <p>Sam Billings</p>
+              <p>9-17</p>
+            </div>
+            <div class="searchResult">
+              <p>Sam Billings</p>
+              <p>9-17</p>
+            </div>
+            <div class="searchResult">
+              <p>Sam Billings</p>
+              <p>9-17</p>
+            </div>
+            <div class="searchResult">
+              <p>Sam Billings</p>
+              <p>9-17</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="secTwo">
+      <div class="profile">
+        <div class="profileImg">
+          <img src="res/shopkeper_image.jpg" alt="" />
+        </div>
+        <p class="profileName">Elon Musk</p>
+        <p class="profilePost">Owner</p>
+        <div class="EmpDetails">
+          <div class="joinDate">
+            <h4>Joined On</h4>
+            <p>12 Jan 2023</p>
+          </div>
+          <div class="contact">
+            <h4>Contact</h4>
+            <p>9874562130</p>
+          </div>
+        </div>
+      </div>
+      <div class="moreDetails">
+        <div class="detailCards">
+          <div class="card1">
+            <i
+              class="fa-duotone fa-clipboard-user"
+              style="--fa-primary-color: #920000; --fa-secondary-color: #920000"
+            ></i>
+            <h4>Attendence</h4>
+          </div>
+          <div class="card2">
+            <i
+              class="fa-duotone fa-building-columns"
+              style="--fa-primary-color: #920000; --fa-secondary-color: #920000"
+            ></i>
+            <h4>Bank Details</h4>
+          </div>
+          <div class="card3">
+            <i
+              class="fa-duotone fa-landmark-magnifying-glass"
+              style="--fa-primary-color: #920000; --fa-secondary-color: #920000"
+            ></i>
+            <h4>Pay Records</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="module" src="Attendence.js"></script>
+  <script type="module" src="AttendenceFaceApi.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const headerContainer = document.getElementById("floated-container");
+      const headerContainer2 = document.getElementById("header-container");
+
+      function openMenu() {
+        let menu = document.querySelector(".menu");
+        let togg = document.querySelector(".toggle");
+        menu.classList.toggle("active");
+      }
+
+      fetch("animationNav/index.html")
+        .then((response) => response.text())
+        .then((html) => {
+          headerContainer.innerHTML = html;
+          const toggle = headerContainer.querySelector(".toggle");
+          toggle.addEventListener("click", openMenu);
+        });
+
+      fetch("layout/header.html")
+        .then((response) => response.text())
+        .then((html) => {
+          headerContainer2.innerHTML = html;
+          //setting the name for the Page...
+          const title = headerContainer2.querySelector(".current-Page");
+          title.innerHTML = "Attendence";
+        });
+    });
+  </script>
+</html>

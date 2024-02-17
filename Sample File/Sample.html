@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        *{
+            font-size: 1.2em;
+        }
+        #floated-container {
+            font-size: .6rem;
+        }
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirogya | Bill </title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="floated-container"></div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const headerContainer = document.getElementById('floated-container');
+        const headerContainer2 = document.getElementById('header-container');
+
+        
+        function openMenu() {
+            let menu = document.querySelector('.menu');
+            let togg = document.querySelector(".toggle");
+            menu.classList.toggle('active');
+
+        }
+
+            fetch("animationNav/index.html")
+            .then(response => response.text())
+            .then(html => {
+                headerContainer.innerHTML = html;
+                const toggle = headerContainer.querySelector('.toggle');
+                toggle.addEventListener('click', openMenu);
+            });
+            
+            fetch("layout/header.html")
+            .then(response => response.text())
+            .then(html => {
+                headerContainer2.innerHTML = html;
+                //setting the name for the Page...
+                const title = headerContainer2.querySelector('.current-Page');
+                title.innerHTML = "Billing"
+            });
+            
+            });
+            
+</script>
+</html>

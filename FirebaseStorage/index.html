@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firebase Image Upload</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    input,
+    button {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      margin: 10px;
+    }
+
+    #message {
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Upload Image to Firebase</h1>
+  <input type="file" id="fileInput" accept="image/*" />
+  <button id="uploadButton">Upload</button>
+  <p id="message"></p>
+  <script type="module">
+     // Import necessary modules
+     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+    // Replace with your Firebase project configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyDUKJBzdWiRqYxKvUKOS3_GTItXuqUX4gY",
+    authDomain: "mynirogya.firebaseapp.com",
+    databaseURL: "https://mynirogya-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "mynirogya",
+    storageBucket: "mynirogya.appspot.com",
+    messagingSenderId: "159595452167",
+    appId: "1:159595452167:web:e122a0828bb1f8ee7117a2",
+    measurementId: "G-DRWEPNQD1P"
+    };
+
+    // Initialize Firebase app
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    // Get references to UI elements
+    const fileInput = document.getElementById("fileInput");
+    const uploadButton = document.getElementById("uploadButton");
+    const message = document.getElementById("message");
+
+    // Upload image on button click
+    uploadButton.addEventListener("click", () => {
+      const file = fileInput.files[0];
+
+      if (!file) {
+        message.textContent = "Please select an image file.";
+        return;
+      }
+
+      // Create a storage reference with a unique filename
+      const storageRef = ref(storage, "images/" + Date.now() + "_" + file.name);
+
+      // Upload the image
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      // Handle success, error, and progress
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Observe state change events such as progress, pause, resume
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          message.textContent = `Uploading... ${progress.toFixed(2)}%`;
+        },
+        (error) => {
+          // Handle errors
+          console.error(error);
+          message.textContent = "Error uploading image.";
+        },
+        () => {
+          // Get the download URL
+          getDownloadURL(storageRef)
+            .then((url) => {
+              message.textContent = "Image uploaded successfully!";
+              console.log("Image URL:", url);
+              // You can use the download URL for your purposes, e.g., display the image
+            })
+            .catch((error) => {
+              console.error(error);
+              message.textContent = "Failed to retrieve download URL.";
+            });
+        }
+      );
+    });
+  </script>
+</body>
+</html>

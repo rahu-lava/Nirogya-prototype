@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home : Nirogya</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        font-size: 1.2em;
+        font-weight: 400;
+        box-sizing: border-box;
+        /* font-family: 'Poppins', sans-serif; */
+        /* color:#920000; */
+      }
+
+      body {
+        /* display: flex; */
+        /* z-index: 4; */
+        /* justify-content: center; */
+        /* height: 100vh; */
+        /* width:100vw; */
+        /* background-color: #eac5c5;   */
+      }
+
+      .container-title {
+        /* border-radius: 30px; */
+        /* border-radius: 40px 0px 0px 0px; */
+        font-family: "Poppins", sans-serif;
+
+        padding: 20px;
+        text-align: center;
+        font-size: 1.3em;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        background-color: rgb(218, 216, 216);
+      }
+
+      /* .container-title span {
+
+        } */
+
+      .container {
+        margin-top: 70px;
+        width: 100%;
+        height: 100%;
+        /* margin-top: 200px; */
+        /* border-radius: 40px 0px 0px 30px; */
+        /* overflow: hidden; */
+        /* border:2px solid #fff    ; */
+        /* border-bottom-left-radius: 20px; */
+        /* border-radius: 30px 0px 0px 0px; */
+        background-color: #ffffff;
+      }
+      /* .menu{
+            position:fixed;
+            bottom: 10px;
+        } */
+      .lineChart {
+        background-color: rgb(224, 224, 224);
+        padding: 6px;
+      }
+      .Graphs {
+        /* background-color: antiquewhite; */
+        display: flex;
+        font-size: 1rem;
+        font-family: "Noto Sans", sans-serif;
+        font-weight: 200;
+        /* overflow:scroll; */
+        /* flex-direction: row; */
+        /* flex-wrap: nowrap; */
+        justify-content: space-between;
+        /* align-items: center; */
+        /* flex-wrap: wrap; */
+        padding: 15px;
+        /* height: fit-content; */
+        /* height: auto; */
+        /* width: max(max-content,100%); */
+        width: 100%;
+      }
+
+      #floated-container {
+        /* width: 15%; */
+        font-size: 0.6rem;
+
+        /* background-color: rgb(255, 255, 255); */
+      }
+      #header-container {
+        height: max-content;
+        font-family: "Poppins", sans-serif;
+        /* display: ; */
+      }
+      #lineCanvas {
+        width: max-content;
+        /* height: 100%; */
+        /* background-color: aqua; */
+      }
+      #donutCanvas {
+        width: 95.33%;
+        /* height: 30%; */
+        /* border: 1px solid black; */
+      }
+      .donutCanvasBox {
+      }
+      .donut-main {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+      }
+
+      .lineChart {
+        /* height: 100%; */
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        padding: 5px;
+        width: 49%;
+
+        /* margin-right: 10px; */
+        /* margin: 0px 20px; */
+        border-radius: 20px;
+        background-color: rgb(255, 255, 255);
+        /* background-color: #eac5c5; */
+      }
+      .donutChart {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        width: 49%;
+        /* margin-top: 20px; */
+        /* margin-left: 10px; */
+        padding: 5px;
+        /* margin-right: 20px; */
+        border-radius: 20px;
+        /* background-color: rgb(235, 223, 223); */
+        /* background-color: #eac5c5; */
+      }
+      .donutChart > * {
+        margin: 10px 0px;
+      }
+      .linePeriod {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 0.6rem;
+        height: 40px;
+        /* width: 170px; */
+        padding: 2px;
+        /* border: 2px solid rgba(0, 0, 255, 0.406); */
+        border-radius: 17px;
+      }
+      .linePeriod button {
+        /* outline: none; */
+        border: none;
+        /* background-color: lightblue; */
+        margin: 0px 3px;
+        padding: 3px 15px;
+        border-radius: 5px;
+      }
+      .periodButton.selected {
+        background-color: #e8c7c7; /* Add your desired styling for the selected button */
+        /* color: #fff; */
+      }
+      .line-desc {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+      }
+      .donut-desc {
+        margin: 0px;
+      }
+
+      .donutPeriod {
+        font-size: 1rem;
+      }
+      .cards {
+        font-family: "Noto Sans", sans-serif;
+        font-weight: 600;
+        padding: 15px;
+        /* height: 250px; */
+        font-size: 2rem;
+        display: grid;
+        column-gap: 25px;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .childCard {
+        font-size: 0.4rem;
+        padding: 15px;
+        border: 1px solid rgba(157, 75, 75, 0.349);
+        /* font-family: 'Open Sans', sans-serif !important ;  */
+        border-radius: 20px;
+      }
+      .childCard h2 {
+        font-size: 1.3rem;
+      }
+      .value {
+        /* text-align: center; */
+        margin: 10px;
+        font-size: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .growthValue {
+        font-size: 1rem;
+        margin: 10px;
+        color: rgb(41, 175, 41);
+        border: 1px solid rgb(244, 241, 241);
+        border-radius: 15px;
+        background: #eae9e9;
+        padding: 15px;
+      }
+      /* ::first-letter{
+            font-size: .7rem;
+        } */
+      .growthValue i {
+        font-size: 1rem;
+      }
+      .lineCanvasBox {
+        display: flex;
+        justify-content: center;
+        /* align-items: ; */
+        /* width:100%; */
+        height: 70%;
+        padding: 10px;
+      }
+      .donutCards {
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        row-gap: 10px;
+        /* padding:20px 0px; */
+      }
+      .colorCard {
+        font-size: 1rem;
+        padding: 10px;
+        /* border-radius: 10px; */
+        text-align: center;
+        transition: all 0.6s ease-in-out;
+      }
+      .donut-title,
+      .line-title {
+        border-left: 3px solid #920000;
+        padding: 2px 7px;
+      }
+
+      .colorCard > p {
+        margin-bottom: 5px;
+      }
+      @media screen and (width<870px) {
+        .Graphs {
+          flex-direction: column;
+          align-items: center;
+          overflow: scroll;
+        }
+        .lineChart {
+          height: 300px;
+          width: 450px;
+        }
+        .donutChart {
+          margin-top: 20px;
+          height: 300px;
+          width: 450px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="header-container"></div>
+    <div id="floated-container"></div>
+    <div class="container">
+      <div class="date"></div>
+      <div class="cards">
+        <div class="card1 childCard">
+          <h2>Total Sales</h2>
+          <p>Today</p>
+          <div class="value">
+            ₹2.3k
+            <div class="growthValue">
+              <i
+                class="fa-duotone fa-caret-up"
+                style="
+                  --fa-primary-color: #46c84f;
+                  --fa-secondary-color: #46c84f;
+                "
+              ></i>
+              12%
+            </div>
+          </div>
+        </div>
+        <div class="card2 childCard">
+          <h2>Total Sales</h2>
+          <p>Today</p>
+          <div class="value">
+            ₹2.3k
+            <div class="growthValue">
+              <i
+                class="fa-duotone fa-caret-up"
+                style="
+                  --fa-primary-color: #46c84f;
+                  --fa-secondary-color: #46c84f;
+                "
+              ></i>
+              12%
+            </div>
+          </div>
+        </div>
+        <div class="card3 childCard">
+          <h2>Average Sales</h2>
+          <p>Today</p>
+          <div class="value">
+            ₹2.3k
+            <div class="growthValue">
+              <i
+                class="fa-duotone fa-caret-up"
+                style="
+                  --fa-primary-color: #46c84f;
+                  --fa-secondary-color: #46c84f;
+                "
+              ></i>
+              12%
+            </div>
+          </div>
+        </div>
+        <div class="card4 childCard">
+          <h2>Total Purchase</h2>
+          <p>Today</p>
+          <div class="value">
+            ₹2.3k
+            <div class="growthValue">
+              <i
+                class="fa-duotone fa-caret-up"
+                style="
+                  --fa-primary-color: #46c84f;
+                  --fa-secondary-color: #46c84f;
+                "
+              ></i>
+              12%
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card5 childCard">
+                <h2>Total Sales</h2>
+                <p>Today</p>
+                <div class="value"></div>
+            </div> -->
+      </div>
+
+      <div class="Graphs">
+        <div class="lineChart">
+          <div class="line-desc">
+            <div class="line-title">Sales Trend</div>
+            <div class="linePeriod">
+              <button
+                class="periodButton selected"
+                onclick="changePeriod(this, 'weekly')"
+              >
+                Weekly
+              </button>
+              <button
+                class="periodButton"
+                onclick="changePeriod(this, 'monthly')"
+              >
+                Monthly
+              </button>
+              <button
+                class="periodButton"
+                onclick="changePeriod(this, 'yearly')"
+              >
+                Yearly
+              </button>
+            </div>
+          </div>
+
+          <div class="lineCanvasBox"><canvas id="lineCanvas"></canvas></div>
+        </div>
+        <div class="donutChart">
+          <div class="donut-desc flex">
+            <div class="donut-title">Expiry Stats</div>
+            <!-- <div class="donutPeriod"></div> -->
+          </div>
+          <div class="donut-main">
+            <div class="donutCanvasBox"><canvas id="donutCanvas"></canvas></div>
+            <div class="donutCards">
+              <div
+                class="donutCard1 colorCard"
+                style="border-left: 3px solid #46c64e"
+              >
+                <p class="donutWord">Safe</p>
+                3
+              </div>
+              <div
+                class="donutCard2 colorCard"
+                style="border-left: 3px solid #ffd301"
+              >
+                <p class="donutWord">Alert</p>
+                3
+              </div>
+              <div
+                class="donutCard3 colorCard"
+                style="border-left: 3px solid #e03c32"
+              >
+                <p class="donutWord">Soon Expiry</p>
+                3
+              </div>
+              <div
+                class="donutCard4 colorCard"
+                style="border-left: 3px solid #920000"
+              >
+                <p class="donutWord">Expired</p>
+                3
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    console.log("hello");
+    var element = document.querySelector(".container");
+    document.addEventListener("DOMContentLoaded", function () {
+      const headerContainer = document.getElementById("floated-container");
+      const headerContainer2 = document.getElementById("header-container");
+
+      function openMenu() {
+        let menu = document.querySelector(".menu");
+        // let togg = document.querySelector(".toggle");
+        menu.classList.toggle("active");
+      }
+
+      fetch("animationNav/index.html")
+        .then((response) => response.text())
+        .then((html) => {
+          headerContainer.innerHTML = html;
+          const toggle = headerContainer.querySelector(".toggle");
+          toggle.addEventListener("click", openMenu);
+        });
+
+      fetch("layout/header.html")
+        .then((response) => response.text())
+        .then((html) => {
+          headerContainer2.innerHTML = html;
+        });
+
+      console.log(
+        "Current width:",
+        headerContainer.offsetWidth,
+        " ",
+        element.offsetWidth,
+        " ",
+        element.offsetHeight
+      );
+
+      // Create a MediaQueryList object for screens less than 2100px
+      var mediaQuery = window.matchMedia("(max-width: 1100px)");
+
+      // Define a function to handle the media query change
+      function handleMediaQueryChange(mediaQuery) {
+        if (mediaQuery.matches) {
+          // Apply styles when the media query matches
+          console.log("query matched");
+        } else {
+          console.log(" hello from else ");
+        }
+      }
+
+      // Call the handler function initially
+      handleMediaQueryChange(mediaQuery);
+
+      // Attach the handler function to the media query change event
+      mediaQuery.addListener(handleMediaQueryChange);
+    });
+
+    var xValues = [1, 2, 3, 4, 5, 6, 7];
+    var yValues = [65, 45, 53, 35, 70, 32, 28];
+
+    // Function to calculate linear regression parameters (slope and intercept)
+    function calculateLinearRegression(x, y) {
+      const n = x.length;
+      const sumX = x.reduce((acc, val) => acc + val, 0);
+      const sumY = y.reduce((acc, val) => acc + val, 0);
+      const sumXY = x.reduce((acc, val, index) => acc + val * y[index], 0);
+      const sumX2 = x.reduce((acc, val) => acc + val ** 2, 0);
+
+      const m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX ** 2);
+      const b = (sumY - m * sumX) / n;
+
+      return { m, b };
+    }
+
+    // Calculate linear regression for the data
+    let trendlineParams = calculateLinearRegression(xValues, yValues);
+
+    let trendlineColor = trendlineParams.m >= 0 ? "green" : "red";
+
+    // Use the regression parameters to predict values for the trendline
+    let trendlineData = xValues.map(
+      (x) => trendlineParams.m * x + trendlineParams.b
+    );
+
+    var ctx = document.getElementById("lineCanvas").getContext("2d");
+    var selectedButton = null;
+    var myChart = new Chart(ctx, {
+      type: "bar", // Choose the type of chart (bar, line, pie, etc.)
+      data: {
+        labels: ["a", "b", "c", "d", "e", "f", "g"], // Your data labels
+        datasets: [
+          {
+            type: "bar", // Bar chart
+            label: "Bar Chart",
+            data: [65, 45, 53, 35, 70, 32, 28],
+            backgroundColor: "rgba(242, 131, 131, 0.7)",
+            borderColor: "#920000",
+            borderWidth: 1,
+            borderRadius: 20,
+          },
+          {
+            type: "line", // Line chart
+            label: "Line Chart",
+            data: trendlineData,
+            borderColor: trendlineColor,
+            borderWidth: 2,
+            fill: false,
+            pointRadius: 1,
+            tension: 0.4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            filter: function (tooltipItem) {
+              return tooltipItem.dataset.type !== "line"; // Hide tooltips for the line chart
+            },
+          },
+        }, // Hide legend
+        scales: {
+          x: {
+            display: false,
+            ticks: {
+              display: false, // hide the values on the x-axis
+            },
+            grid: {
+              display: false, // hide the grid lines for the x-axis
+            },
+          },
+          y: {
+            display: false,
+            ticks: {
+              display: false, // hide the values on the x-axis
+            },
+            grid: {
+              display: false, // hide the grid lines for the y-axis
+            },
+          },
+        },
+      },
+    });
+
+    var ctx2 = document.getElementById("donutCanvas").getContext("2d");
+    var donutCards = document.querySelectorAll(".colorCard");
+
+    var myChart2 = new Chart(ctx2, {
+      type: "doughnut",
+      data: {
+        labels: [
+          "less than 3 months",
+          "less than 8 months",
+          "less than 12 months",
+          "expired",
+        ],
+        datasets: [
+          {
+            label: "",
+            data: [3, 19, 12, 1],
+            backgroundColor: ["#4cbb17", "#FFD301", "#E03C32", "#920000"],
+            borderColor: ["#4cbb17", "#FFD301", "#E03C32", "#920000"],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "70%",
+        plugins: {
+          legend: {
+            display: false,
+            position: "bottom",
+          },
+        },
+        onHover: function (event, elements) {
+          if (elements.length > 0) {
+            var hoveredIndex = elements[0].index;
+            styleDonutCards(hoveredIndex);
+          } else {
+            // Reset styles if not hovering over any segment
+            resetDonutCardStyles();
+          }
+        },
+      },
+    });
+
+    function styleDonutCards(index) {
+      // Customize styles based on the hovered segment index
+      donutCards.forEach((card, i) => {
+        switch (i) {
+          case 0:
+            card.style.backgroundColor = index === i ? "#46c84f" : "";
+            card.style.borderRadius = index === i ? "15px" : "";
+            console.log(index);
+            break;
+          case 1:
+            card.style.backgroundColor = index === i ? "#FFD301" : "";
+            card.style.borderRadius = index === i ? "15px" : "";
+            console.log(index);
+            break;
+          case 2:
+            card.style.backgroundColor = index === i ? "#E03C32" : "";
+            card.style.color = index === i ? "#fff" : "";
+            card.style.borderRadius = index === i ? "15px" : "";
+            console.log(index);
+            break;
+          case 3:
+            card.style.backgroundColor = index === i ? "#920000" : "";
+            card.style.color = index === i ? "#fff" : "";
+            card.style.borderRadius = index === i ? "15px" : "";
+            console.log(index);
+            break;
+          default:
+            break;
+        }
+      });
+    }
+
+    function resetDonutCardStyles() {
+      // Reset styles when not hovering over any segment
+      donutCards.forEach((card) => {
+        card.style.borderRadius = "";
+        card.style.backgroundColor = "";
+        card.style.color = ""; // Reset to default background color or any other styles you want to reset
+      });
+    }
+
+    function changePeriod(clickedButton, period) {
+      // Update the selected button
+      updateSelectedButton(clickedButton);
+
+      var newData;
+
+      // Modify data based on the selected period
+      switch (period) {
+        case "weekly":
+          xValues = [1, 2, 3, 4, 5, 6, 7];
+          yValues = [65, 45, 33, 35, 30, 32, 28];
+          console.log("me yaha toh aa raha hun");
+          trendlineParams = calculateLinearRegression(xValues, yValues);
+
+          trendlineColor = trendlineParams.m >= 0 ? "green" : "red";
+
+          // Use the regression parameters to predict values for the trendline
+          trendlineData = xValues.map(
+            (x) => trendlineParams.m * x + trendlineParams.b
+          );
+
+          newData = {
+            labels: ["a", "b", "c", "d", "e", "f", "g"],
+            datasets: [
+              {
+                type: "bar",
+                label: "Bar Chart",
+                data: [65, 45, 33, 35, 30, 32, 28],
+                backgroundColor: "rgba(242, 131, 131, 0.7)",
+                borderColor: "#920000",
+                borderWidth: 1,
+                borderRadius: 20,
+              },
+              {
+                type: "line",
+                label: "Line Chart",
+                data: trendlineData,
+                borderColor: trendlineColor,
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 4,
+                tension: 0.4,
+              },
+            ],
+          };
+          break;
+        case "monthly":
+          xValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+          yValues = [25, 30, 35, 20, 35, 30, 35, 40, 45, 40, 35, 50];
+
+          trendlineParams = calculateLinearRegression(xValues, yValues);
+
+          trendlineColor = trendlineParams.m >= 0 ? "green" : "red";
+
+          // Use the regression parameters to predict values for the trendline
+          trendlineData = xValues.map(
+            (x) => trendlineParams.m * x + trendlineParams.b
+          );
+          newData = {
+            labels: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
+            datasets: [
+              {
+                type: "bar",
+                label: "Bar Chart",
+                data: [25, 30, 35, 20, 35, 30, 35, 40, 45, 40, 35, 50],
+                backgroundColor: "rgba(242, 131, 131, 0.7)",
+                borderColor: "#920000",
+                borderWidth: 1,
+                borderRadius: 20,
+              },
+              {
+                type: "line",
+                label: "Line Chart",
+                data: trendlineData,
+                borderColor: trendlineColor,
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 4,
+                tension: 0.4,
+              },
+            ],
+          };
+          break;
+
+        case "yearly":
+          xValues = [1, 2, 3, 4, 5];
+          yValues = [200, 240, 210, 280, 230];
+
+          trendlineParams = calculateLinearRegression(xValues, yValues);
+
+          trendlineColor = trendlineParams.m >= 0 ? "green" : "red";
+
+          // Use the regression parameters to predict values for the trendline
+          trendlineData = xValues.map(
+            (x) => trendlineParams.m * x + trendlineParams.b
+          );
+
+          newData = {
+            labels: ["2021", "2022", "2023", "2024", "2025"],
+            datasets: [
+              {
+                type: "bar",
+                label: "Bar Chart",
+                data: [200, 240, 210, 280, 230],
+                backgroundColor: "rgba(242, 131, 131, 0.7)",
+                borderColor: "#920000",
+                borderWidth: 1,
+                borderRadius: 20,
+              },
+              {
+                type: "line",
+                label: "Line Chart",
+                data: trendlineData,
+                borderColor: trendlineColor,
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 4,
+                tension: 0.4,
+              },
+            ],
+          };
+          break;
+
+        default:
+          newData = initialData; // Use initial data if period is not recognized
+      }
+
+      // Update chart data
+      myChart.data = newData;
+      myChart.update();
+    }
+
+    function updateSelectedButton(clickedButton) {
+      // Remove the 'selected' class from the previously selected button
+      document.querySelectorAll(".periodButton").forEach((button) => {
+        button.classList.remove("selected");
+      });
+
+      // Add the 'selected' class to the clicked button
+      clickedButton.classList.add("selected");
+
+      // Update the selectedButton variable
+      selectedButton = clickedButton;
+    }
+  </script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    hello
+  </body>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+      getStorage,
+      ref,
+      getDownloadURL,
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+    const firebaseConfig = {
+      // Your Firebase project configuration
+      apiKey: "AIzaSyDUKJBzdWiRqYxKvUKOS3_GTItXuqUX4gY",
+      authDomain: "mynirogya.firebaseapp.com",
+      databaseURL:
+        "https://mynirogya-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "mynirogya",
+      storageBucket: "mynirogya.appspot.com",
+      messagingSenderId: "159595452167",
+      appId: "1:159595452167:web:e122a0828bb1f8ee7117a2",
+      measurementId: "G-DRWEPNQD1P",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+
+    async function fetchJsonFromFirebaseStorage(fileUrl) {
+      const fileRef = ref(storage, fileUrl);
+
+      try {
+        // Choose between `getDownloadURL` or `fetchDownloadURL` as needed:
+        // For smaller files:
+        const downloadURL = await getDownloadURL(fileRef);
+        const response = await fetch(downloadURL);
+        const jsonData = await response.json();
+
+        // Success! Use the jsonData variable here
+        console.log("Successfully downloaded and parsed JSON:", jsonData);
+
+        // Or for larger files or streaming:
+        //     const jsonDataStream = await fetchDownloadURL(fileRef);
+        //     const jsonDataArray = [];
+
+        //     // Process the streamed data in chunks if needed:
+        //     const reader = jsonDataStream.body.getReader();
+        //     let { done, value } = await reader.read();
+        //     while (!done) {
+        //       jsonDataArray.push(value);
+        //       ({ done, value } = await reader.read());
+        //     }
+
+        //     const jsonData2 = JSON.parse(jsonDataArray.join(""));
+
+        //     // Success! Use the jsonData variable here
+        //     console.log("Successfully downloaded and parsed JSON:", jsonData2);
+      } catch (error) {
+        console.error("Error fetching and parsing JSON:", error);
+        // Handle errors gracefully
+      }
+    }
+    // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const url =
+      "https://firebasestorage.googleapis.com/v0/b/mynirogya.appspot.com/o/json%2FA_data.json?alt=media&token=f9d82fe3-ed28-4a50-b8c1-c1c05b6dfb15";
+
+    // Example usage, assuming you have the fileUrl received elsewhere:
+    const receivedFileUrl = url;
+    fetchJsonFromFirebaseStorage(receivedFileUrl);
+  </script>
+</html>

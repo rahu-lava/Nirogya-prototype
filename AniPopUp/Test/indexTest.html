@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .alignConfirm {
+        /* Toggling Class */
+        display: flex;
+        flex-direction: column;
+      }
+      .searchField {
+        display: flex;
+        border: 1px solid #fac4c4;
+        border-radius: 10px;
+        background-color: white;
+        width: max-content;
+        /* padding: 7px 10px; */
+      }
+
+      .searchField > div {
+        display: flex;
+        color: #920000;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        background: #ffd3d3;
+        /* border: 1px solid #f4e0e0; */
+        /* margin: 5px; */
+        padding: 10px;
+        border-radius: 10px;
+      }
+
+      .searchField > div > * {
+        margin: 0px 5px;
+      }
+
+      .searchField > input {
+        font-size: 0.8rem;
+        padding: 0px 10px;
+        /* background-color: #efbaba; */
+        border-radius: 20px;
+        outline: none;
+        border: none;
+        width: 400px;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="alignConfirm">
+      <div class="formLabel">
+        <p>Add Employee</p>
+        <i class="fa-solid fa-xmark close" style="color: #920000"></i>
+      </div>
+      <label for=""> Name: <input type="text" name="" id="" /> </label>
+      <label for="">
+        Contact:<input
+          type="tel"
+          inputmode="numeric"
+          name="phoneNumber"
+          pattern="\d{10}"
+          maxlength="10"
+          placeholder="Phone Number"
+          required
+      /></label>
+      <label for="">
+        Bank Name: <input type="text" name="" id="" required />
+      </label>
+      <label for="">
+        Account Number: <input type="tel" maxlength="18" required id="" />
+      </label>
+      <label for="">
+        Choose 2-5 images :
+        <input type="file" name="" id="" value="Choose two values" multiple />
+        <img src="" alt="" /> <img src="" alt=""
+      /></label>
+      <div class="confirmDiv">Done</div>
+    </form>
+  </body>
+</html>
